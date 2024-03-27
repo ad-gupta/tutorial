@@ -10,7 +10,7 @@ import {
 } from "../reducers/tutor";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Slider from "../components/Slider";
 import RatingSlider from "../components/RatingSlider";
 
@@ -109,32 +109,17 @@ const Learn = () => {
 
             <fieldset>
               <p className="mt-10"> Ratings above</p>
-              {/* <Slider
-                value={ratings}
-                onChange={(e, newRating) => {
-                  setRatings(newRating);
-                }}
-                aria-labelledby="continuous-slider"
-                valueLabelDisplay="auto"
+              <RatingSlider
                 min={0}
-                max={5}
-              /> */}
-              {/* <Slider
-                min={0}
-                max={5}
                 value={ratings}
-                onChange={(newRating) => setRatings(newRating)}
-                ariaLabel={["Ratings"]}
-              /> */}
-              <RatingSlider min={0}
-              value={ratings}
-              onChange={(e) => setRatings(e)} />
+                onChange={(e) => setRatings(e)}
+              />
             </fieldset>
           </div>
 
           <div className="w-[80%] max-lg:w-[100%]">
             <div className="flex flex-wrap items-center justify-center gap-10">
-              {tutorials &&
+              {tutorials && Array.isArray(tutorials) && 
                 tutorials.map((tutor) => (
                   <TutorCard
                     key={tutor._id}
