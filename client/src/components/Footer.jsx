@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-blue-900 text-slate-300">
-      <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row items-center justify-between">
+      <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row items-center justify-evenly">
         {/* Download Section */}
         <div className="mb-8 lg:mb-0">
           <h4 className="font-semibold text-lg mb-2">DOWNLOAD OUR APP</h4>
