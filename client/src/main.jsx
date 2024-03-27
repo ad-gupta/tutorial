@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <PersistGate persistor={persistor}>
+  <PersistGate persistor={persistor} loading= {null}>
     <Provider store={store}>
       <Router>
         <App />
