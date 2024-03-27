@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import Rating from 'react-rating-stars-component';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,16 +31,19 @@ const getProductDetails = async (dispatch, id) => {
   }
 };
 
-const addToCart = async (dispatch, id, alert) => {
+const addToCart = async (dispatch, id) => {
   try {
     dispatch(addToCartReq())
     const {data} = await axios.post(`/api/v1/addToCart/${id}`);
     console.log(data)
     dispatch(addToCartSuccess(data));
     // console.log(data)
-    alert.success("added to cart")
+    
+    
+    
+    toast.success("added to cart")
   } catch (error) {
-    alert.error("order not added to cart")
+    toast.error("order not added to cart")
     dispatch(addToCartFail(error.response.data.message))
   }
 }
@@ -51,7 +54,6 @@ const TutorialDetails = () => {
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
   const { id } = useParams();
-  const alert = useAlert();
   const {isAuthenticated} = useSelector(state => state.user)
 
   useEffect(() => {
@@ -66,7 +68,8 @@ const TutorialDetails = () => {
     e.preventDefault();
     try {
       if(!isAuthenticated) {
-        alert.error("Login first")
+
+        toast.error("Login first")
         return;
       }
       dispatch(reviewAddRequest());
@@ -74,19 +77,30 @@ const TutorialDetails = () => {
         rating,
         comment,
       };
+      console.log(rating)
+      console.log(comment)
 
       const { data } = await axios.post(`/api/v1/rate/${id}`, rev);
-      alert.success("Review Added");
+      toast.success("Review Added");
       dispatch(reviewAddSuccess());
     } catch (error) {
-      alert.error("Something went wrong");
+      toast.error("Something went wrong");
       dispatch(reviewAddFail());
     }
   };
 
   const handleAddToCart = () => {
-    addToCart(dispatch, id, alert);
+    addToCart(dispatch, id);
   }
+
+  const options = {
+    count: 5,
+    size: 24,
+    edit: true,
+    activeColor: "#ffd700",
+    isHalf: true,
+  };
+  console.log("rating", rating)
   
   const settings = {
     dots: true,
@@ -167,7 +181,7 @@ const TutorialDetails = () => {
           <form className="mt-4" onSubmit={handleReviewAdd}>
             <Rating
               {...options}
-              onChange={(e) => setRating(parseInt(e.target.value))}
+              onChange={(e) => setRating(e)}
             />
             <textarea
               className="w-full p-2 border border-gray-300 rounded-md mb-2"

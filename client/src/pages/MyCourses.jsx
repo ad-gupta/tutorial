@@ -4,14 +4,13 @@ import { myCourseFail, myCourseRequest, myCourseSuccess } from '../reducers/myCo
 import axios from 'axios';
 import CourseCard from '../components/CourseCard';
 import { useNavigate } from 'react-router-dom';
-import { useAlert } from 'react-alert';
+import {  toast } from "react-toastify";
 
 const getMyCourses = async (dispatch) => {
   try {
     dispatch(myCourseRequest());
 
     const {data} = await axios.get(`/api/v1/getMyCourse`);
-    // console.log(data)
 
     dispatch(myCourseSuccess(data));
     return data.message;
@@ -26,13 +25,12 @@ const MyCourses = () => {
   let isAuth = useSelector(state => state.user.isAuthenticated)
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const alert = useAlert()
 
   useEffect(() => {
     try {
       if(!isAuth) {
         navigate('/login')
-        alert.error("login first")
+        toast.error("login first")
         return;
       }
       const fetchData = async () => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import { cartFail, cartReq, cartSuccess, clearErrors } from "../reducers/order";
 import CartItemsCard from "../components/CartItemsCard";
 import { AiFillSafetyCertificate } from "react-icons/ai";
@@ -26,7 +26,6 @@ const MyOrders = () => {
   const [loading, setloading] = useState(false)
   const dispatch = useDispatch();
   let isAuth = useSelector((state) => state.user.isAuthenticated);
-  const alert = useAlert();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const MyOrders = () => {
       setloading(true)
       if (!isAuth) {
         navigate("/login");
-        alert.error("login first");
+        toast.error("login first");
         setloading(false)
         return;
       }
@@ -43,7 +42,7 @@ const MyOrders = () => {
           const data = await getCart(dispatch);
           setCart(data.message[0]); // Assuming the cart data is directly returned as an object
         } catch (error) {
-          alert.error("Failed to fetch cart");
+          toast.error("Failed to fetch cart");
         }
       };
 
@@ -51,7 +50,7 @@ const MyOrders = () => {
       setloading(false)
     } catch (error) {}
     dispatch(clearErrors());
-  }, [dispatch, alert]);
+  }, [dispatch]);
 
   const makePayment = async () => {
     try {

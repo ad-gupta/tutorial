@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import MyLoader from "../components/MyLoader";
 import { useSelector } from "react-redux";
 
@@ -12,12 +12,10 @@ const UploadPyq = () => {
   const [price, setPrice] = useState("");
   const [video, setVideo] = useState(null);
   const [pdf, setPdf] = useState("");
-  //   const [uploadedImgUrl, setUploadedImgUrl] = useState("");
   const [previewPdfUrl, setPreviewPdfUrl] = useState("");
   const [previewVideoUrl, setPreviewVideoUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const alert = useAlert();
   const isAuth = useSelector(state => state.user.isAuthenticated)
 
   const handleCategoryChange = (e) => {
@@ -45,14 +43,14 @@ const UploadPyq = () => {
     try {
       setLoading(true);
       if(!isAuth) {
-        alert.error('Please login first')
+        toast.error('Please login first')
         navigate('/login')
         setLoading(false)
         return;
       }
 
       if(!pdf || !title || !price || !year || !category) {
-        alert.error('information is incomplete')
+        toast.error('information is incomplete')
         setLoading(false)
         return;
       }
@@ -69,7 +67,7 @@ const UploadPyq = () => {
         year,
         category
       });
-      alert.success("Uploaded Successfully!");
+      toast.success("Uploaded Successfully!");
       setLoading(false);
       navigate("/pyqs");
     } catch (error) {

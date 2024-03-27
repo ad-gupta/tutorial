@@ -4,14 +4,12 @@ import Sidebar from "./Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
-import { useAlert } from "react-alert";
 import { CiSearch } from "react-icons/ci";
 
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(false);
   const [user, setUser] = useState(null); // Initialize user state with null
   const [keyword, setKeyword] = useState("");
-  const alert = useAlert();
   const isAuth = useSelector((state) => state.user.isAuthenticated); // Removed useState wrapper
   const userData = useSelector((state) => state.user.user); // Moved user data extraction here
   const navigate = useNavigate();
@@ -36,7 +34,6 @@ const Navbar = () => {
   const handleClick = () => {
     setActiveMenu(!activeMenu);
   };
-  // console.log(user.data.message.avatar.url)
 
   return (
     <div className="flex items-center justify-between fixed max-sm:absolute w-full max-sm:h-20 ">

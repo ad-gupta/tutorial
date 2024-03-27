@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import { MdOutlineDomainVerification } from "react-icons/md";
 
 const CartItemsCard = ({ cartItems }) => {
   const [toDelete, setToDelete] = useState(false);
-  const alert = useAlert();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.delete(
         `/api/v1/myOrders/delete/${cartItems.tutorialId}`
       );
-      alert.success(data.message);
+      toast.success(data.message);
       setToDelete(false);
     } catch (error) {
-      alert.error(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 

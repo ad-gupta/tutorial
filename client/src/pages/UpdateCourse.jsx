@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import MyLoader from "../components/MyLoader";
 import { useDispatch } from "react-redux";
 import { tutorialDetailsFail, tutorialDetailsRequest, tutorialDetailsSuccess } from "../reducers/tutorialDetails";
@@ -31,7 +31,6 @@ const UpdateCourse = () => {
   const [previewVideoUrl, setPreviewVideoUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
-  const alert = useAlert()
   const dispatch = useDispatch()
   const {id} = useParams();
 
@@ -93,7 +92,7 @@ const UpdateCourse = () => {
         image: imgUrl,
         video: videoUrl
       });
-      alert.success("Updated Successfully!")
+      toast.success("Updated Successfully!")
       setLoading(false)
       navigate('/learn')
     } catch (error) {

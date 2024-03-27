@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import MyLoader from "../components/MyLoader";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setloading] = useState(false);
-  const alert = useAlert()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +20,7 @@ const Contact = () => {
           email, 
           message
         });
-        alert.success("You will be contacted soon")
+        toast.success("You will be contacted soon")
         setloading(false)
       }
     } catch (error) {

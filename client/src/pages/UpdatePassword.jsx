@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { updatePasswordRequest, updatePasswordSuccess, updateProfileFail } from "../reducers/user";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 
 const UpdatePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const alert = useAlert()
 
   const handlePasswordUpdate = async (e) => {
     e.preventDefault();
@@ -24,7 +23,7 @@ const UpdatePassword = () => {
         { oldPassword: password, newPassword: confirmPassword },
       );
       console.log(data)
-      alert.success("password updated successfully")
+      toast.success("password updated successfully")
       dispatch(updatePasswordSuccess(data.success));
       navigate('/learn')
     } catch (error) {

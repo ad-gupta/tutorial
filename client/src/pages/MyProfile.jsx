@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MyLoader from "../components/MyLoader";
-import { useAlert } from "react-alert";
 import {
     logoutFail,
     logoutRequest,
@@ -13,6 +12,7 @@ import {
 } from "../reducers/user";
 import TimeAgo from "timeago-react";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const uploadFile = async (imag) => {
   const data = new FormData();
@@ -36,7 +36,6 @@ const MyProfile = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [img, setImg] = useState("");
   const [loading, setLoading] = useState(false);
-  const alert = useAlert();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -64,10 +63,10 @@ const MyProfile = () => {
       });
       dispatch(updatePasswordSuccess(data));
       setImg(data.message.avatar.url);
-      alert.success("Uploaded Successfully!");
+      toast.success("Uploaded Successfully!");
       setLoading(false);
     } catch (error) {
-      alert.error("Upload Fail, please try later!");
+      toast.error("Upload Fail, please try later!");
       dispatch(updateProfileFail(error.response.data.message));
     }
   };

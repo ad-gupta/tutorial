@@ -8,7 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { delCourseFail, delCourseRequest, delCourseSuccess } from "../reducers/myCourses";
 import axios from "axios";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import UpdateCourse from "../pages/UpdateCourse";
 
 const CourseCard = ({ course }) => {
@@ -16,7 +16,6 @@ const CourseCard = ({ course }) => {
   const [toDelete, setToDelete] = useState(false);
   const [toEdit, setToEdit] = useState(false);
   const dispatch = useDispatch();
-  const alert = useAlert()
   const handleReview = () => {
     setReview(!review);
   };
@@ -27,11 +26,11 @@ const CourseCard = ({ course }) => {
 
         const {data} = await axios.delete(`/api/v1/deleteMyCourse/${course._id}`);
         console.log(data)
-        alert.success(data.message)
+        toast.success(data.message)
         dispatch(delCourseSuccess(course._id))
         setToDelete(false);
     } catch (error) {
-        alert.error(error.response.data.message)
+        toast.error(error.response.data.message)
         dispatch(delCourseFail(error.response.data.message))
     }
   }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -11,7 +10,6 @@ import {
 import axios from "axios";
 import MyLoader from "../components/MyLoader";
 import PaperCard from "../components/PaperCard.jsx";
-// import { Slider } from "@material-ui/core";
 import Pagination from "react-js-pagination";
 import Slider from "../components/Slider.jsx";
 
@@ -57,7 +55,6 @@ const PYQs = () => {
   const { keyword } = useParams();
 
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const { papers, error, paperCount, resultperpage, filteredPapersCount } =
     useSelector((state) => state.paper);

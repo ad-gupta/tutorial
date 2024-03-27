@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyLoader from "./MyLoader";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddTutor = () => {
@@ -18,7 +18,7 @@ const AddTutor = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch()
   let isAuth = useSelector(state => state.user.isAuthenticated)
-  const alert = useAlert();
+
   const navigate = useNavigate()
 
   const handleCategoryChange = (e) => {
@@ -49,14 +49,14 @@ const AddTutor = () => {
       setLoading(true);
       if(!isAuth) {
         navigate('/login')
-        alert.error('login first')
+        toast.error('login first')
         setLoading(false)
         return;
       }
       console.log(!img || !subject || !fee || !category)
       
       if(!img || !subject || !fee || !category) {
-        alert.error("information is incomplete only video (optional)")
+        toast.error("information is incomplete only video (optional)")
         setLoading(false)
         return;
       }
@@ -76,12 +76,12 @@ const AddTutor = () => {
         image: imgUrl,
         video: videoUrl
       });
-      alert.success("Uploaded Successfully!")
+      toast.success("Uploaded Successfully!")
       dispatch(tutorialAddSuccess(data));
       setLoading(false)
       navigate('/learn')
     } catch (error) {
-      alert.error(error.response.data.message)
+      toast.error(error.response.data.message)
       dispatch(tutorialAddFail(error.response.data.message))
     }
   };

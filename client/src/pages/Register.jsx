@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginFail, loginRequest, loginSuccess } from '../reducers/user';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { useAlert } from 'react-alert';
+import {  toast } from "react-toastify";
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -11,7 +11,6 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const alert = useAlert()
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -22,11 +21,11 @@ const Register = () => {
         `/api/v1/register`,
         { name: username, email, password },
       );
-      alert.success("Registered Successfully")
+      toast.success("Registered Successfully")
       navigate('/learn')
       dispatch(loginSuccess({ payload: data.user }));
     } catch (error) {
-      alert.error(error.response.data.message)
+      toast.error(error.response.data.message)
       dispatch(
         loginFail({
           payload: error.response.data.message,

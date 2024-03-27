@@ -10,7 +10,7 @@ import {
 } from "../reducers/tutor";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 import Slider from "../components/Slider";
 import RatingSlider from "../components/RatingSlider";
 
@@ -54,7 +54,6 @@ const Learn = () => {
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState(0);
   const [loading, setloading] = useState(false);
-  const alert = useAlert();
 
   const { keyword } = useParams();
 
@@ -77,7 +76,7 @@ const Learn = () => {
 
   useEffect(() => {
     setloading(true);
-    if (error) alert.error(error);
+    if (error) toast.error(error);
     getProducts(dispatch, keyword, currentPage, price, category, ratings);
     setloading(false);
   }, [keyword, dispatch, currentPage, price, category, ratings]);

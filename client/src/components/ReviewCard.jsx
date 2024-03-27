@@ -9,11 +9,10 @@ import {
   reviewDeleteRequest,
   reviewDeleteSuccess,
 } from "../reducers/tutorialDetails";
-import { useAlert } from "react-alert";
+import {  toast } from "react-toastify";
 
 const ReviewCard = ({ id, revId, name, rating, comment, date, image }) => {
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const handleDeleteReview = async () => {
     try {
@@ -21,10 +20,10 @@ const ReviewCard = ({ id, revId, name, rating, comment, date, image }) => {
 
       const data = await axios.delete(`/api/v1/deleteReview/${id}?id=${revId}`);
       console.log(data);
-      alert.success("Deleted Successfully");
+      toast.success("Deleted Successfully");
       dispatch(reviewDeleteSuccess());
     } catch (error) {
-      alert.error("You cannot delete others' review");
+      toast.error("You cannot delete others' review");
       dispatch(reviewDeleteFail(error.response.data.message));
     }
   };
