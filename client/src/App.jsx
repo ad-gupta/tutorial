@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import WebFont from 'webfontloader';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import Footer from './components/Footer';
@@ -46,11 +45,11 @@ const App = () => {
   let isAuth = useState(useSelector(state => state.user.isAuthenticated))
   const dispatch = useDispatch();
   useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ['Roboto', 'Droid Sans', 'Chilanka']
-      }
-    });
+    // WebFont.load({
+    //   google: {
+    //     families: ['Roboto', 'Droid Sans', 'Chilanka']
+    //   }
+    // });
 
     isAuth && loadUser(dispatch);
     
