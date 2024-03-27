@@ -33,10 +33,28 @@ const tutorials = createSlice({
             state.error = action.payload;
             state.success = true;
         },
+
+        tutorialAddRequest: (state, action) => {
+            state.loading = true;
+            state.error = null;
+        },
+        tutorialAddSuccess: (state, action) => {
+            state.loading = false;
+            state.error = null;
+            // Assuming action.payload contains the newly added tutorial
+            state.tutorials = { ...state.tutorials, [action.payload._id]: action.payload };
+            state.courseCount += 1;
+            state.success = true;
+          },          
+        tutorialAddFail: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+            state.success = true;
+        },
     }
 })
 
 
-export const {tutorialRequest, tutorialSuccess, tutorialFail} = tutorials.actions
+export const {tutorialRequest, tutorialSuccess, tutorialFail, tutorialAddRequest, tutorialAddFail, tutorialAddSuccess} = tutorials.actions
 
 export default tutorials.reducer

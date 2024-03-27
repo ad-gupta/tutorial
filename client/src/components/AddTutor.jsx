@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import MyLoader from "./MyLoader";
 import {  toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { tutorialAddFail, tutorialAddRequest, tutorialAddSuccess } from "../reducers/tutor";
 
 const AddTutor = () => {
   const [name, setName] = useState("");
@@ -47,28 +48,27 @@ const AddTutor = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      if(!isAuth) {
-        navigate('/login')
-        toast.error('login first')
-        setLoading(false)
+      if (!isAuth) {
+        navigate('/login');
+        toast.error('Login first');
+        setLoading(false);
         return;
       }
-      console.log(!img || !subject || !fee || !category)
-      
-      if(!img || !subject || !fee || !category) {
-        toast.error("information is incomplete only video (optional)")
-        setLoading(false)
+      if (!img || !subject || !fee || !category) {
+        toast.error("Information is incomplete. Please fill all required fields.");
+        setLoading(false);
         return;
       }
-      dispatch(tutorialAddRequest())
+      dispatch(tutorialAddRequest()); 
+  
       const imgUrl = await uploadFile('image');
       let videoUrl = "";
-      if(!video) videoUrl = await uploadFile('video');
-      if(!loading) {
+      if (!video) videoUrl = await uploadFile('video');
+      if (!loading) {
         setPreviewImgUrl(imgUrl);
-        setPreviewVideoUrl(videoUrl)
+        setPreviewVideoUrl(videoUrl);
       }
-
+  
       const { data } = await axios.post(`/api/v1/addCourse`, {
         title: subject,
         fee,
@@ -76,15 +76,18 @@ const AddTutor = () => {
         image: imgUrl,
         video: videoUrl
       });
-      toast.success("Uploaded Successfully!")
+      toast.success("Uploaded Successfully!");
       dispatch(tutorialAddSuccess(data));
-      setLoading(false)
-      navigate('/learn')
+      setLoading(false);
+      navigate('/learn');
     } catch (error) {
-      toast.error(error.response.data.message)
-      dispatch(tutorialAddFail(error.response.data.message))
+      toast.error(error.response.data.message);
+      dispatch(tutorialAddFail(error.response.data.message));
+      setLoading(false);
     }
   };
+  
+
 
   return (
     <div className="pt-20">
@@ -130,7 +133,7 @@ const AddTutor = () => {
                 >
                   <option value="">Select a category...</option>
                   <option value="Primary">Primary</option>
-                  <option value="Matric">High School</option>
+                  <option value="High School">High School</option>
                   <option value="Intermediate">Intermediate</option>
                   <option value="graduation">Graduation</option>
                   <option value="postGraduation">Post Graduation</option>
