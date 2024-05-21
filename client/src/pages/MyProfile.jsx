@@ -70,6 +70,7 @@ const MyProfile = () => {
       dispatch(updateProfileFail(error.response.data.message));
     }
   };
+  console.log(userDetails)
 
   const handleLogout = async() => {
     try {

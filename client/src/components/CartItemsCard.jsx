@@ -111,6 +111,11 @@ const CartItemsCard = ({ cartItems }) => {
             </div>
           )}
         </div>
+        <div className="absolute ml-[-8vh] mt-5 bg-rose-400 text-sm p-2 text-white font-semibold rounded shadow-lg">
+          <a href="https://streaming-platform-blush.vercel.app/">
+            Join Class
+          </a>
+        </div>
       </div>
     </div>
   );

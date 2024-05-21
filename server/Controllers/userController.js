@@ -7,14 +7,12 @@ import crypto from 'crypto'
 
 export const registerUser = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
-  console.log({ name, email, password })
   const user = await User.create({ name, email, password });
   sendCookie(user, 201, res);
 });
 
 export const loginUser = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log({email, password})
   if (!email || !password) return next(new ErrorHandler("Invalid email or password", 400));
 
   const user = await User.findOne({ email }).select("+password");

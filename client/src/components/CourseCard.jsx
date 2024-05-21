@@ -6,9 +6,13 @@ import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { delCourseFail, delCourseRequest, delCourseSuccess } from "../reducers/myCourses";
+import {
+  delCourseFail,
+  delCourseRequest,
+  delCourseSuccess,
+} from "../reducers/myCourses";
 import axios from "axios";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import UpdateCourse from "../pages/UpdateCourse";
 
 const CourseCard = ({ course }) => {
@@ -22,33 +26,35 @@ const CourseCard = ({ course }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        dispatch(delCourseRequest());
+      dispatch(delCourseRequest());
 
-        const {data} = await axios.delete(`/api/v1/deleteMyCourse/${course._id}`);
-        console.log(data)
-        toast.success(data.message)
-        dispatch(delCourseSuccess(course._id))
-        setToDelete(false);
+      const { data } = await axios.delete(
+        `/api/v1/deleteMyCourse/${course._id}`
+      );
+      console.log(data);
+      toast.success(data.message);
+      dispatch(delCourseSuccess(course._id));
+      setToDelete(false);
     } catch (error) {
-        toast.error(error.response.data.message)
-        dispatch(delCourseFail(error.response.data.message))
+      toast.error(error.response.data.message);
+      dispatch(delCourseFail(error.response.data.message));
     }
-  }
+  };
 
   const handleEdit = () => {
-    setToEdit(!toEdit)
-    navigate('/')
-  }
+    setToEdit(!toEdit);
+    navigate("/");
+  };
 
   const handleNo = () => {
-    setToDelete(false)
-    setToEdit(false)
-  }
+    setToDelete(false);
+    setToEdit(false);
+  };
 
   const makeSureDelete = () => {
     setToDelete(!toDelete);
   };
-  console.log(toDelete)
+  console.log(toDelete);
   return (
     <div className="rounded bg-white m-1 flex">
       <div className="flex w-[95%] items-center h-72">
@@ -121,28 +127,39 @@ const CourseCard = ({ course }) => {
             </div>
           )}
         </div>
-        <FaEdit size={24} className="mt-3 text-slate-400" onClick={() => setToEdit(!toEdit)}/>
+        <FaEdit
+          size={24}
+          className="mt-3 text-slate-400"
+          onClick={() => setToEdit(!toEdit)}
+        />
         {toEdit && (
-            <div className="absolute ml-[-20vh] bg-white p-4 rounded shadow-lg">
-              <div>
-                <p>Are You Sure?</p>
-                <div className="flex justify-end mt-4">
-                  <button
-                    type="button"
-                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-2 rounded"
-                    onClick={handleNo}
-                  >
-                    NO
-                  </button>
-                  <Link to={`/editTutorial/${course._id}`}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    YES
-                  </Link>
-                </div>
+          <div className="absolute ml-[-20vh] bg-white p-4 rounded shadow-lg">
+            <div>
+              <p>Are You Sure?</p>
+              <div className="flex justify-end mt-4">
+                <button
+                  type="button"
+                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-2 rounded"
+                  onClick={handleNo}
+                >
+                  NO
+                </button>
+                <Link
+                  to={`/editTutorial/${course._id}`}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  YES
+                </Link>
               </div>
             </div>
-          )}
+          </div>
+        )}
+
+        <div className="absolute ml-[-8vh] mt-5 bg-rose-400 text-sm p-2 text-white font-semibold rounded shadow-lg">
+          <a href="https://streaming-platform-blush.vercel.app/">
+            Take Class
+          </a>
+        </div>
       </div>
     </div>
   );

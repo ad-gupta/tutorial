@@ -26,7 +26,8 @@
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "timeago": "^1.6.7",
-    "timeago-react": "^3.0.6"
+    "timeago-react": "^3.0.6",
+    "tutorr": "file:.."
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
