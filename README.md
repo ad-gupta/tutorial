@@ -74,7 +74,10 @@ Smart Tutor is an online educational platform designed to connect tutors and stu
 
 
 ## Live Link: 
-  `https://smart-tutor-bu5k.onrender.com`
+  ```bash
+   git clone https://github.com/ad-gupta/tutorial.git
 
 
+
+![Your paragraph text (1)](https://github.com/user-attachments/assets/7b489d25-b20f-4b33-b698-1d16ba2f3f6b)
 
