@@ -55,9 +55,9 @@ Smart Tutor is an online educational platform designed to connect tutors and stu
 - `GET /api/v1/cart/my-orders`: Get user orders
 - `DELETE /api/v1/cart/delete/:id`: Delete an item from the cart
 
-   ## Live Link: 
+  ## Live Link: 
   ```bash
-   git clone https://github.com/ad-gupta/tutorial.git
+   https://smart-tutor-bu5k.onrender.com/
 
 ## Setup and Installation
 
@@ -80,3 +80,7 @@ Smart Tutor is an online educational platform designed to connect tutors and stu
 
 
 ![Your paragraph text (1)](https://github.com/user-attachments/assets/83237992-db5f-45b4-9c9b-8236c01eeb1e)
+
+[Screenshot 2024-10-27 185919.pdf](https://github.com/user-attachments/files/17534869/Screenshot.2024-10-27.185919.pdf)
+
+
